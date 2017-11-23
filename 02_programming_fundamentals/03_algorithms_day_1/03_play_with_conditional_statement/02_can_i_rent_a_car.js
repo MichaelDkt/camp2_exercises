@@ -14,6 +14,12 @@ const bonus = driverData.bonus;
 // Assign a boolean to this variable:
 //   `true` if the driver can rent a car
 //   `false` if not
-let canRentACar;
 
 // Your code here:
+let canRentACar = false;
+
+if ((driverLicense >= "B" && licenceIssued <= 2015) && (numberOfAccident === 0 || (numberOfAccident !== 0 && bonus >= 0.7))) {
+  canRentACar = true;
+} else {
+  canRentACar = false;
+}
