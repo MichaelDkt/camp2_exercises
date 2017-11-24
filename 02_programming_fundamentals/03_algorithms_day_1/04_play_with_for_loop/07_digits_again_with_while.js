@@ -4,6 +4,7 @@
 
 let digits = 0;
 do {
-  digits += 1;
-  console.log(digits -1);
-} while (digits <= 9);
+  console.log(digits);
+  digits = digits + 1;
+}
+while (digits <= 9);
