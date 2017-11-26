@@ -9,8 +9,25 @@
 */
 
 function fizzBuzz(list) {
+  const fizzBuzzList = [];
 
+  for(let i = 0; i < list.length; i++ ) {
+    if (list[i] % 3 === 0 && list[i] % 5 === 0) {
+      fizzBuzzList.push("FizzBuzz");
+
+    } else if (list[i] % 5 === 0) {
+      fizzBuzzList.push("Buzz");
+
+    } else if (list[i] % 3 === 0) {
+      fizzBuzzList.push("Fizz");
+
+    } else {
+      fizzBuzzList.push(list[i]);
+    }
+  }
+
+  return fizzBuzzList;
 }
 
 
-module.exports = fizzBuzz;
+module.exports = fizzBuzzList;
