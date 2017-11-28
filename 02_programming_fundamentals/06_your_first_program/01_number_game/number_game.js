@@ -11,23 +11,23 @@ const reader = readline.createInterface({
 });
 
 function test(input) {
-  if (input === mysteryNumber) {
+  if (parseInt(input, 10) === mysteryNumber) {
     console.log("Right !");
     reader.close();
 
-  } else if (input > mysteryNumber && input < 100) {
+  } else if (parseInt(input, 10) > mysteryNumber && parseInt(input, 10) < 100) {
     console.log("Too high");
     reader.question("What is the number?\n", test);
 
-  } else if (input < mysteryNumber && input > 0) {
+  } else if (parseInt(input, 10) < mysteryNumber && parseInt(input, 10) > 0) {
     console.log("Too low");
     reader.question("What is the number?\n", test);
 
-  } else if (input < 0 !== input > 100) {
+  } else if (parseInt(input, 10) < 0 !== parseInt(input, 10) > 100) {
     console.log("The number is between 1 and 100");
     reader.question("What is the number?\n", test);
 
-  } else if (Number.isInteger(input) === false) {
+  } else if (Number.isInteger(parseInt(input, 10)) === false) {
     console.log("This is not a number");
     reader.question("What is the number?\n", test);
   }
