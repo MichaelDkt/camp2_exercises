@@ -30,4 +30,4 @@ function fizzBuzz(list) {
 }
 
 
-module.exports = fizzBuzzList;
+module.exports = fizzBuzz;
