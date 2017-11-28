@@ -10,8 +10,18 @@
 //
 // WARNING: You're not allowed to use `Array.map`!
 
-// Your code here...
+function double(number) {
+  return number * 2;
+}
 
+function map (array, double) {
+  const arraydouble = [];
+
+  for(let i=0; i<array.length; i++) {
+    arraydouble.push(double(array[i]));
+  }
+  return arraydouble;
+}
 // Do not remove last lines, it is for tests
 // eslint-disable-next-line
 module.exports = { double: double, map: map };
