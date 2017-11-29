@@ -2,9 +2,10 @@
 //
 // Create the famous `digits` array using a `while-loop`.
 
-let digits = 0;
-do {
-  console.log(digits);
-  digits = digits + 1;
+let digits = [];
+let i = 0;
+
+while(i <= 9) {
+  digits.push(i);
+  i++;
 }
-while (digits <= 9);
