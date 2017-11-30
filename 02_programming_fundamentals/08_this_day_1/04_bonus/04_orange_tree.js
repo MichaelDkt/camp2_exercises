@@ -31,7 +31,7 @@ const orangeTree = {
        this.oranges = 0;
     }
 
-      if ((this.age >= 50 && this.age === this.ageDie) || this.age >= 100) {
+      if ((this.age >= 50 && this.age >= this.ageDie) || this.age >= 100) {
         this.alive = false;
       } else {
         this.alive = true;
