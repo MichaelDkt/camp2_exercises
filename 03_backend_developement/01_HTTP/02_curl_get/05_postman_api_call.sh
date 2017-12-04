@@ -1,1 +1,1 @@
-curl "https://postman-echo.com/time/valid"?todate=2017-12-04 > 05_postman_api_call.result
+curl "https://postman-echo.com/time/valid"?todate=%y-%m-%d > 05_postman_api_call.result
