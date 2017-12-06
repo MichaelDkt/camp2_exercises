@@ -6,15 +6,10 @@
 //  *****
 // *******
 // ```
-
-const space = ["", "", "", ""];
-const space2 = ["", "", "", ""];
-const star = ["*"];
-
-const pyramid = [];
-for (let i = 0; i <7; i++) {
-  pyramid.push(space.pop());
-  pyramid.push(star);
-  pyramid.push(space2.pop());
-  console.log(pyramid.join());
+let myLine = [" "," "," ","*"];
+console.log(myLine.join(""));
+for (let i=1; i<=3; i++){
+  myLine[3-i]="*";
+  myLine[3+i]="*";
+  console.log(myLine.join(""));
 }
