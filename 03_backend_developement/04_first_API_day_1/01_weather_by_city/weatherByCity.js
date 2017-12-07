@@ -1,15 +1,23 @@
 const request = require("request");
-const ID_WEATHERMAP = process.env.ID_WEATHERMAP;
 
-request(
-  {
-    url: "api.openweathermap.org/data/2.5/weather?q={city name}&APPID={ID_WEATHERMAP}",
+const API_KEY = process.env.ID_WEATHERMAP;
+
+
+function weatherByCity(city) {
+  const json = request({
+    url: `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${API_KEY}&units=metric`,
     method: "GET",
-    headers: {
-      "Authorization": "APPID={APIKEY}"
-    }
   },
   function(error, response, result) {
-    console.log("result:", result); // Print the HTML for the Google homepage.
+
+    const json = JSON.parse(result);
+
+    console.log(json.main.temp + "°C");
+    return (json.main.temp + " °C");
   }
-);
+  );
+  return json;
+}
+weatherByCity("London");
+
+module.exports = weatherByCity;
