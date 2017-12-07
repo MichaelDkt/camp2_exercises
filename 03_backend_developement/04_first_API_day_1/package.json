@@ -1,0 +1,14 @@
+{
+  "name": "04_first_api_day_1",
+  "version": "1.0.0",
+  "description": "Weather by city",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.83.0"
+  }
+}
