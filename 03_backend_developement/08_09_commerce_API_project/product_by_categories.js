@@ -2,22 +2,23 @@ const express = require("express");
 const app = express();
 const PG = require("pg");
 const client = new PG.Client();
-const port = process.env.PORT || 3000;
 const request = require("request");
+const port = process.env.PORT || 3000;
+let compteur = 0;
+client.connect();
 
 
 function UIDCategories(callback) {
-  request({
-    url: "https://decath-product-api.herokuapp.com/categories",
-    method: "GET",
-  },
-  function(error, response, result) {
-    const UID = JSON.parse(result);
-    UID.forEach(category => {
-      callback(category.id);
+  client.query(
+    "SELECT id FROM categories", function(error,result){
+      if(error) {
+        console.warm(error);
+      } else {
+        result.rows.forEach( category => {
+          callback(category.id);
+        });
+      }
     });
-  }
-  );
 }
 
 function productByUID(id) {
@@ -31,6 +32,7 @@ function productByUID(id) {
         console.log(error);
       } else {
         JSON.parse(result).forEach(product => {
+          compteur ++;
           client.query(
             "INSERT INTO products_by_categories VALUES ($1::uuid, $2::uuid)",
             [id, product.id],
@@ -40,9 +42,9 @@ function productByUID(id) {
               } else {
                 return result;
               }
-            }
-          );
+            });
         });
+        console.log(compteur);
       }
     }
   );
