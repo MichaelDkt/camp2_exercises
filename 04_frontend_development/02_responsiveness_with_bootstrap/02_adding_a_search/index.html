@@ -33,8 +33,13 @@
       </div>
     </div>
     <script src="./departments.js"></script>
-    <script>
-      // Your code here
+    <script type="text/javascript">
+    const myInput = document.querySelector("#search-department");
+    displayDepartments(DEPARTMENTS);
+    myInput.addEventListener("input", function() {
+      filterArray(this.value);
+    });
+
     </script>
   </body>
 </html>
