@@ -15,6 +15,7 @@
   },
   "homepage": "https://github.com/fewlinesco/camp2_exercises#readme",
   "dependencies": {
+    "bootstrap": "^4.0.0-beta.2",
     "express": "^4.16.2",
     "jszip": "^3.1.5",
     "phoenix-channels": "^1.0.0"

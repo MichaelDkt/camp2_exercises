@@ -1,0 +1,50 @@
+{% extends "layout.njk" %}
+  {% block content %}
+    <div>
+
+
+        <div class="container">
+              <header class="header clearfix">
+                <h3 class="text-muted">{{product.title}}</h3>
+              </header>
+
+              <main role="main">
+
+                <div class="jumbotron">
+                  <img src="https://www.decathlon.fr/media/{{product.image_path}}" width="180" height="180" class="mr-auto" alt="">
+                </div>
+
+                <div class="row marketing">
+                  <div class="col-lg-6">
+                    <h4>Description</h4>
+                    <p>{{product.description}}</p>
+
+                    <h4>brand</h4>
+                    <p>{{product.brand_id}}</p>
+
+                    <h4>Price</h4>
+                    <p>{{product.rating}}</p>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <h4>Prix pratiqué</h4>
+                    <p>{{product.min_price}}</p>
+
+                    <h4>Prix conseillé</h4>
+                    <p>{{product.max_price}}</p>
+
+                    <h4>Réduction</h4>
+                    <p>{{product.percent_reduction}}</p>
+                  </div>
+                </div>
+
+              </main>
+
+              <footer class="footer">
+                <p>&copy; MichaelDont'Touch</p>
+              </footer>
+
+            </div> <!-- /container -->
+
+    </div>
+  {% endblock %}
