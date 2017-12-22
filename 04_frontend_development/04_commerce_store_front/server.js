@@ -3,7 +3,6 @@ const port = process.env.PORT || 3000;
 const express = require("express");
 const nunjucks = require("nunjucks");
 const fetch = require("node-fetch");
-const categories = require("./categoriesImport");
 const product = require("./categoriesImport");
 
 const app = express();
@@ -25,7 +24,7 @@ app.listen(port, function () {
 });
 
 app.get("/categories", function(request, result) {
-  categories.categoriesImport("catégories")
+  product.categoriesImport("categories")
   .then(categoriesDkt => {
     result.render("categories", {categories : categoriesDkt})
   })
@@ -34,7 +33,7 @@ app.get("/categories", function(request, result) {
   });
 });
 app.get("/categories/:id/products", function(request, result) {
-  categories.categoriesImport(`categories/${request.params.id}/products`)
+  product.categoriesImport(`categories/${request.params.id}/products`)
   .then(productDkt => {
     result.render("product_list", {categories : productDkt})
   })
