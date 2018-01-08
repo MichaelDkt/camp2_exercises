@@ -1,1 +1,11 @@
 {% extends "layout.njk" %}
+
+{% block content %}
+  <div>
+    {% for categoriesList in categories %}
+    <div class="list-group">
+      <a href="/categories/{{categoriesList.id}}/products" class="list-group-item list-group-item-action">{{categoriesList.label}}</a>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock %}

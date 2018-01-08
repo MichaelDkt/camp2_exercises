@@ -4,7 +4,7 @@ const express = require("express");
 const nunjucks = require("nunjucks");
 const fetch = require("node-fetch");
 const product = require("./categoriesImport");
-
+const port = process.env.PORT || 3000
 const app = express();
 
 nunjucks.configure("views", {
@@ -16,11 +16,11 @@ app.set("views", __dirname + "/views");
 app.set("view engine", "njk");
 
 app.get("/", function(request, result) {
-  result.render("home");
+  result.render("categories");
 });
 
 app.listen(port, function () {
-  console.log("Server listening on port:" + 3000);
+  console.log("Server listening on port:" + PORT);
 });
 
 app.get("/categories", function(request, result) {
