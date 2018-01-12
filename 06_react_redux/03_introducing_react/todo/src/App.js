@@ -1,53 +1,94 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { ListGroup, ListGroupItem, FormGroup, FormControl, Checkbox, Button } from 'react-bootstrap';
 
-class List extends Component {
+
+
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      todos: [],
+      value: '',
+      checkboxChecked: true
+    }
+  }
+
   render() {
     return (
-    <div>
-      <div className="container-fluid text-center">
-        <h1> TODO LIST </h1>
-        <form>
-          <div className="form-group mx-sm-3 mb-2">
-            <input type="text" className="form-control"/>
-          </div>
-          <button type="submit" className="btn btn-primary mb-2" id="inputTask">Create task</button>
-        </form>
+      <div className="App">
+        <header className="App-header">
+          <h1 className="App-title">Welcome to TodoApp</h1>
+        </header>
+        <div className="container">
+
+        <form onSubmit={this.handleSubmit}>
+  				<FormGroup controlId="formBasicText">
+  					<FormControl
+  						type="text"
+  						value={this.state.value}
+  						placeholder="Enter todo name"
+  						onChange={this.handleChange}/>
+  				</FormGroup>
+  			</form>
+
+        <ListGroup>
+          <span className="head-taks-group">Tasks Open</span>
+          {this.state.todos.filter(todo => todo.status === 'open').map((todo, index) =>
+          <ListGroupItem key={todo.name}>
+              <Checkbox onChange={() => this.handleCheck(todo.name, 'done')}>
+                <span>{todo.name}</span>
+              </Checkbox>
+          </ListGroupItem>)}
+        </ListGroup>
+
+        <ListGroup>
+          <span className="head-taks-group">Tasks done</span>
+          {this.state.todos.filter(todo => todo.status === 'done').map((todo, index) =>
+          <ListGroupItem key={todo.name}>
+              <Checkbox checked={this.state.checkboxChecked} onChange={() => this.handleCheck(todo.name, 'open')}>
+              <span className="todo-done">{todo.name}</span>
+              </Checkbox>
+          </ListGroupItem>)}
+        </ListGroup>
+
+        <div>
+          <Button bsStyle="primary" onClick={() => this.removeDone()}>Delete done tasks</Button>
+        </div>
+        </div>
       </div>
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col"></th>
-            <th scope="col">Task</th>
-            <th scope="col">State</th>
-            <th scope="col">Delete</th>
-          </tr>
-        </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Faire le ménage</td>
-          <td>progress</td>
-          <td>Delete</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Boire un coup</td>
-          <td>progress</td>
-          <td>Ok</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Se coucher</td>
-          <td>Delete</td>
-          <td>Delete</td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
-    )
+    );
+  }
+
+  handleChange = (event) => {
+    this.setState({value: event.target.value});
+  }
+
+  handleCheck = (selectedTodo, status) => {
+    const todoIndex = this.state.todos.findIndex((todo) => todo.name === setlectedTodo)
+    const newTodo = this.state.todos[todoIndex]
+    newTodo.status = status;
+    const newTodos = [...this.state.todos]
+    newTodos.splice(todoIndex, 1)
+    newTodos.push(newTodo);
+
+    this.setState({todos: [...newTodos]})
+  }
+
+  removeDone = () => {
+    const cleanTodoList = this.state.todos.filter(todo => todo.status === 'open');
+    this.setState({todos: [...cleanTodoList]})
+  }
+
+  handleSubmit = (event) => {
+    const newTodo = {
+      name: this.state.value,
+      status: 'open'
+    }
+    this.setState({todos: [...this.state.todos, ...[newTodo]]})
+    event.preventDefault();
   }
 }
 
-export default List;
+export default App;
