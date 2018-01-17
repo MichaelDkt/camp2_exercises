@@ -1,14 +1,14 @@
 {
   "name": "02_slacky_2",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "Start with `npm install` to get all packages",
+  "main": "index.js",
   "dependencies": {
     "express": "^4.16.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.0",
-    "redux": "^3.7.2",
     "ws": "^4.0.0"
   },
   "scripts": {
@@ -17,5 +17,6 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:8080"
+  "author": "",
+  "license": "ISC"
 }

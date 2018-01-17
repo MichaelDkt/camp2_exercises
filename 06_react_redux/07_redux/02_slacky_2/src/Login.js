@@ -1,37 +1,48 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { connectWebsocket } from "./websocket"
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: ""
-    };
-  }
+function Login(props) {
+  return (
+    <form className="Login" onSubmit={event => {
+      event.preventDefault();
+      props.login(props.loginInputValue);
+      connectWebsocket();
+    }}>
+      <div>
+        Please choose a login name
+      </div>
+      <input
+        type="text"
+        onChange={props.updateLoginInputValue}
+        value={props.loginInputValue}
+      />
+      <button type="submit">Log in</button>
+    </form>
+  );
+}
 
-  handleChange = event => {
-    this.setState({ value: event.target.value });
-  };
-
-  handleSubmit = event => {
-    event.preventDefault();
-    this.props.handleUserName(this.state.value);
-  };
-
-  render() {
-    return (
-      <form className="Login" onSubmit={this.handleSubmit}>
-        <div>
-          Please choose a login name
-        </div>
-        <input
-          type="text"
-          onChange={this.handleChange}
-          value={this.state.value}
-        />
-        <button type="submit">Log in</button>
-      </form>
-    );
+function mapStateToProps(state) {
+  return {
+    loginInputValue: state.loginInputValue
   }
 }
 
-export default Login;
+function mapDispatchToProps(dispatch) {
+  return {
+    updateLoginInputValue: (event) => dispatch({
+      type: "UPDATE_LOGIN_INPUT_VALUE",
+      value: event.target.value
+    }),
+    login: (userName) => dispatch({
+      type: "LOGIN",
+      userName: userName
+    })
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
+// <Connect handleUserName={funct} loginInputValue updateLoginInputValue  >
+//   <Login handleUserName={funct} loginInputValue updateLoginInputValue />
+// </Connect>

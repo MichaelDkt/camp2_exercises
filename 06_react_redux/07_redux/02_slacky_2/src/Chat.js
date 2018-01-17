@@ -1,21 +1,12 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { sendMessageToWS } from "./websocket"
 
 class Chat extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      newMessage: ""
-    };
-  }
-
-  handleChange = event => {
-    this.setState({ newMessage: event.target.value });
-  };
-
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
-    this.props.sendMessage(this.state.newMessage);
-    this.setState({ newMessage: "" });
+    sendMessageToWS(this.props.chatMessageValue);
+    this.props.sendMessage();
   };
 
   componentDidUpdate() {
@@ -51,8 +42,8 @@ class Chat extends Component {
           <form onSubmit={this.handleSubmit}>
             <input
               type="text"
-              value={this.state.newMessage}
-              onChange={this.handleChange}
+              value={this.props.chatMessageValue}
+              onChange={this.props.updateChatMessageValue}
             />
             <button type="submit">Send</button>
           </form>
@@ -62,4 +53,24 @@ class Chat extends Component {
   }
 }
 
-export default Chat;
+function mapStateToProps(state) {
+  return {
+    chatMessageValue: state.chatMessageValue,
+    messages: state.messages
+  }
+}
+
+
+function mapDispatchToProps(dispatch) {
+  return {
+    updateChatMessageValue: (event) => dispatch({
+      type: "UPDATE_CHAT_INPUT_VALUE",
+      value: event.target.value
+    }),
+    sendMessage: () => dispatch({
+      type: "SEND_MESSAGE"
+    })
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chat);

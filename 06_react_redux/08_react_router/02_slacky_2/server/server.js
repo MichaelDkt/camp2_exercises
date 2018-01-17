@@ -1,6 +1,5 @@
 const express = require("express");
 const http = require("http");
-const path = require("path");
 const WebSocket = require("ws");
 const server = require("http").createServer();
 const app = express();
@@ -9,21 +8,32 @@ const app = express();
 const messages = [];
 
 // Launch the Websocket server
-const WebsocketServer = new WebSocket.Server({ server: server });
+const wss = new WebSocket.Server({ server });
 
-WebsocketServer.on("connection", function connection(ws, req) {
+wss.on("connection", function connection(ws, req) {
   ws.on("message", function incoming(data) {
     const message = JSON.parse(data);
     switch (message.type) {
       case "LOGIN":
-        ws.send(JSON.stringify({ type: "MESSAGES", data: messages}));
+        wss.clients.forEach((client) => {
+          if (client.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({
+              type: "MESSAGES",
+              data: messages,
+            }));
+          }
+        });
         return;
       case "NEW_MESSAGE":
         // Add the message to the list of messages
-        messages.push({ userName: message.userName, message: message.message });
+        messages.push({
+          userName: message.userName,
+          message: message.message,
+          channel: this.props.location.state
+         });
 
         // Sends all messages to all connected clients
-        WebsocketServer.clients.forEach((client) => {
+        wss.clients.forEach((client) => {
           if (client.readyState === WebSocket.OPEN) {
             client.send(JSON.stringify({ type: "MESSAGES", data: messages}));
           }
@@ -38,11 +48,6 @@ WebsocketServer.on("connection", function connection(ws, req) {
   ws.on("error", console.warn);
 });
 
-app.use(express.static(path.join(__dirname, "../build")));
-
-app.get("*", (request, result) => {
-  result.sendFile(path.join(__dirname, "../build/index.html"));
-});
 
 server.on("request", app);
 server.listen(8080, function listening() {
